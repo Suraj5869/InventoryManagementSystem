@@ -52,14 +52,15 @@ namespace InventoryApp.Presentation
             }
         }
 
+        //show the transactions of the specific product 
         private static void ViewTransacions()
         {
             Console.WriteLine("Enter the product name:");
             string name = Console.ReadLine();
             try
             {
-                Product product = productRepository.GetByName(name);
-                var transactions = transactionRepository.GetAllTransactions(product);
+                Product product = productRepository.GetByName(name);//Get the product if it is exist else get an exception
+                var transactions = transactionRepository.GetAllTransactions(product);//Get all the transactions of the specific product
                 Console.WriteLine("Transaction Id\tProduct Id\tType\tQuantity\tDate & Time\t\tInventory Id");
                 PrintTransactions(transactions);
             }
@@ -77,6 +78,7 @@ namespace InventoryApp.Presentation
             }
         }
 
+        //Remove the specific quantity of stock from the database
         private static void RemoveStock()
         {
             Console.WriteLine("Enter the product name:");
@@ -84,10 +86,11 @@ namespace InventoryApp.Presentation
 
             try
             {
-                Product product = productRepository.GetByName(name);
-                var productData = transactionRepository.GetProduct(product);
+                Product product = productRepository.GetByName(name);//Get the product if it is exist else get an exception
+                var productData = transactionRepository.GetProduct(product);//Get all the data of product along with inventory
                 Console.WriteLine("Enter the amount of quantity to remove:");
                 int quantity = int.Parse(Console.ReadLine());
+                transactionRepository.CheckStock(productData, quantity);//checks if the sufficient amount of product is available or not
                 productData.Quantity -= quantity;
 
                 Transaction transaction = new Transaction { ProductId = productData.Id, Type = TransactionType.REMOVE, Quantity = quantity, Date = DateTime.Now, InventoryId = productData.InventoryId };
@@ -97,8 +100,13 @@ namespace InventoryApp.Presentation
             {
                 Console.WriteLine(ex.Message);
             }
+            catch(InsufficientStockException ie)
+            {
+                Console.WriteLine(ie.Message);
+            }
         }
 
+        //Add the stock in the inventory
         private static void AddStock()
         {
             Console.WriteLine("Enter the product name:");
@@ -106,8 +114,8 @@ namespace InventoryApp.Presentation
 
             try
             {
-                Product product = productRepository.GetByName(name);
-                var productData = transactionRepository.GetProduct(product);
+                Product product = productRepository.GetByName(name);//Get the product if it is exist else get an exception
+                var productData = transactionRepository.GetProduct(product);//Get all the data of product along with inventory
                 Console.WriteLine("Enter the amount of quantity to add:");
                 int quantity = int.Parse(Console.ReadLine());
                 productData.Quantity += quantity;

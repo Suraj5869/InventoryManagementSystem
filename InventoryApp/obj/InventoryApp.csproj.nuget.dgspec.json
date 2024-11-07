@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Suraj\\OneDrive\\Desktop\\internship\\Demo\\InventoryApp\\InventoryApp\\InventoryApp.csproj": {}
+    "C:\\Users\\Suraj\\OneDrive\\Desktop\\internship\\Tasks\\InventoryApp\\InventoryApp\\InventoryApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Suraj\\OneDrive\\Desktop\\internship\\Demo\\InventoryApp\\InventoryApp\\InventoryApp.csproj": {
+    "C:\\Users\\Suraj\\OneDrive\\Desktop\\internship\\Tasks\\InventoryApp\\InventoryApp\\InventoryApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Suraj\\OneDrive\\Desktop\\internship\\Demo\\InventoryApp\\InventoryApp\\InventoryApp.csproj",
+        "projectUniqueName": "C:\\Users\\Suraj\\OneDrive\\Desktop\\internship\\Tasks\\InventoryApp\\InventoryApp\\InventoryApp.csproj",
         "projectName": "InventoryApp",
-        "projectPath": "C:\\Users\\Suraj\\OneDrive\\Desktop\\internship\\Demo\\InventoryApp\\InventoryApp\\InventoryApp.csproj",
+        "projectPath": "C:\\Users\\Suraj\\OneDrive\\Desktop\\internship\\Tasks\\InventoryApp\\InventoryApp\\InventoryApp.csproj",
         "packagesPath": "C:\\Users\\Suraj\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Suraj\\OneDrive\\Desktop\\internship\\Demo\\InventoryApp\\InventoryApp\\obj\\",
+        "outputPath": "C:\\Users\\Suraj\\OneDrive\\Desktop\\internship\\Tasks\\InventoryApp\\InventoryApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Suraj\\AppData\\Roaming\\NuGet\\NuGet.Config",

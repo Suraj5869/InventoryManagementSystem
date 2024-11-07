@@ -13,17 +13,25 @@ namespace InventoryApp.Presentation
     {
         static InventoryRepository inventoryRepository = new InventoryRepository();
 
+        //It collect all the data of repository and make the report 
         public static void MakeReport()
         {
+
             Console.WriteLine("Enter the inventory Id:");
             int id = int.Parse(Console.ReadLine());
             try
             {
+                //Checks if the inventory of specified id exist or not
+                //if not exist then throw the exception
                 inventoryRepository.CheckInventory(id);
                 
+                //collect the available products in the inventory
                 var inventoryProducts = inventoryRepository.GetInventoryProducts(id);
+                //collect the available suppliers in the inventory
                 var inventorySuppliers = inventoryRepository.GetAllSuppliers(id);
+                //collect the transactions done in the inventory
                 var inventoryTransactions = inventoryRepository.GetAllTransactions(id);
+                //It calculate the total cost of the products present in the inventory
                 double totalCost = GetTotalPrice(inventoryProducts);
 
                 PrintReport(inventoryProducts, inventorySuppliers, inventoryTransactions, totalCost);
@@ -34,6 +42,7 @@ namespace InventoryApp.Presentation
             }
         }
 
+        //the method print the data given by above method
         private static void PrintReport(Inventory inventoryProducts, Inventory inventorySuppliers, Inventory inventoryTransactions, double totalCost)
         {
             Console.WriteLine("Inventory Details:\n" +

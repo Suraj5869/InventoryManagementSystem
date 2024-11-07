@@ -59,16 +59,18 @@ namespace InventoryApp.Presentation
             }
         }
 
+        //Prints all the suppliers stored in database
         private static void ShowAllSuppliers()
         {
             var suppliers = supplierRepository.GetAllSuppliers();
             foreach (var supplier in suppliers)
             {
                 Console.WriteLine(supplier);
-                Console.WriteLine("~~~~~~~~~~~~~~~~");
+                Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~");
             }
         }
 
+        
         private static void ViewSupplier()
         {
             Console.WriteLine("How do you want to search:\n" +
@@ -95,6 +97,7 @@ namespace InventoryApp.Presentation
             }
         }
 
+        //Get the details of the supplier by their name
         private static void SearchByName()
         {
             Console.WriteLine("Enter name of supplier:");
@@ -110,6 +113,7 @@ namespace InventoryApp.Presentation
             }
         }
 
+        //Get the details of the supplier by their id
         private static void SearchById()
         {
             Console.WriteLine("Enter supplier Id:");
@@ -125,6 +129,7 @@ namespace InventoryApp.Presentation
             }
         }
 
+        //Delete the supplier if it is exist in database else give an exception
         private static void DeleteSupplier()
         {
             Console.WriteLine("Enter supplier Name:");
@@ -133,7 +138,7 @@ namespace InventoryApp.Presentation
             {
                 Supplier supplier = supplierRepository.GetByName(name);
                 supplierRepository.RemoveSupplier(supplier);
-                Console.WriteLine("Supplier deleted successfully.");
+                Console.WriteLine("Supplier deleted successfully.\n");
             }
             catch (InvalidSupplierException ex)
             {
@@ -141,6 +146,7 @@ namespace InventoryApp.Presentation
             }
         }
 
+        //update the supplier details in database
         private static void UpdateSupplier()
         {
             Console.WriteLine("Enter supplier Name:");
@@ -163,19 +169,18 @@ namespace InventoryApp.Presentation
 
             Console.WriteLine("Enter new supplier email:");
             string email = Console.ReadLine();
+
             Console.WriteLine("Enter new inventory id:");
             int id = int.Parse(Console.ReadLine());
-
             
             try
             {
                 inventoryRepository.CheckInventory(id);
                 Supplier supplier1 = new Supplier { Name = name, Email = email, InventoryId = id };
-                supplierRepository.CheckSupplier(supplier1);
-                supplier.Name = name;
-                supplier.Email = email;
-                supplier.InventoryId = id;
-                Console.WriteLine("Supplier updated Successfully!!");
+                supplierRepository.CheckSupplier(supplier1);//check if the supplier with same details is already exist or not
+                supplierRepository.UpdateSupplier(supplier, name, email, id);//update the supplier
+                
+                Console.WriteLine("Supplier updated Successfully!!\n");
             }
             catch (DuplicateSupplierException de)
             {
@@ -201,9 +206,9 @@ namespace InventoryApp.Presentation
                 inventoryRepository.CheckInventory(id);
 
                 Supplier supplier = new Supplier { Name = name, Email = email, InventoryId = id };
-                supplierRepository.CheckSupplier(supplier);
-                supplierRepository.AddSupplier(supplier);
-                Console.WriteLine("Supplier Added Successfully!!");
+                supplierRepository.CheckSupplier(supplier);//checks if the supplier is already exist or not if not then add the new suppllier
+                supplierRepository.AddSupplier(supplier);//add new supplier in database
+                Console.WriteLine("Supplier Added Successfully!!\n");
             }
             catch(DuplicateSupplierException de)
             {

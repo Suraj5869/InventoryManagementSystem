@@ -59,16 +59,20 @@ namespace InventoryApp.Presentation
             }
         }
 
+        //shows all the available products 
         private static void ShowAllProducts()
         {
             var products = productRepository.GetAllProducts();
+            Console.WriteLine($"Total products: {products.Count}\n" +
+                $"--------------------------------");
             foreach (var product in products)
             {
                 Console.WriteLine(product);
-                Console.WriteLine("~~~~~~~~~~~~~~~~");
+                Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~");
             }
         }
 
+        //It shows the details of specific product based on their name and id
         private static void ViewProduct()
         {
             Console.WriteLine("How do you want to search:\n" +
@@ -95,6 +99,7 @@ namespace InventoryApp.Presentation
             }
         }
 
+        //Search the details of specific product by their name if it is not exist then get an exception
         private static void SearchByName()
         {
             Console.WriteLine("Enter name of product:");
@@ -110,6 +115,7 @@ namespace InventoryApp.Presentation
             }
         }
 
+        //Search the details of specific product by their id if it is not exist then get an exception
         private static void SearchById()
         {
             Console.WriteLine("Enter product Id:");
@@ -125,6 +131,7 @@ namespace InventoryApp.Presentation
             }
         }
 
+        //It delete the product by their name
         private static void DeleteProduct()
         {
             Console.WriteLine("Enter product Name:");
@@ -133,7 +140,7 @@ namespace InventoryApp.Presentation
             {
                 Product product = productRepository.GetByName(name);
                 productRepository.RemoveProduct(product);
-                Console.WriteLine("Product deleted successfully.");
+                Console.WriteLine("Product deleted successfully.\n");
             }
             catch (InvalidProductException ex)
             {
@@ -156,20 +163,21 @@ namespace InventoryApp.Presentation
             }
         }
 
+        //Get all the details of the product to update its data
         private static void GetProductDetails(Product product)
         {
             Console.WriteLine("Enter new product name:");
             string name = Console.ReadLine();
             try
             {
-                productRepository.CheckProductExist(name);
-                product.Name = name;
+                productRepository.CheckProductExist(name);//get an exception if the product is not exist
                 Console.WriteLine("Enter new product description:");
                 string description = Console.ReadLine();
-                product.Description = description;
                 Console.WriteLine("Enter new price of product:");
                 double price = double.Parse(Console.ReadLine());
-                product.Price = price; Console.WriteLine("Product Added successfully!!\n");
+                productRepository.UpdateProduct(product, name, description, price);//update the product 
+                
+                Console.WriteLine("Product Updated successfully!!\n");
             }
             catch (DuplicateProductException de)
             {
@@ -192,10 +200,10 @@ namespace InventoryApp.Presentation
             try
             {
                 int id = int.Parse(Console.ReadLine());
-                inventoryRepository.CheckInventory(id);
+                inventoryRepository.CheckInventory(id);//checks if the inventory id exist or not if it is not exist then get an exception 
                 Product product = new Product { Name = name, Description = description, Quantity = quantity, Price = price, InventoryId = id };
-                productRepository.CheckProductExist(name);
-                productRepository.AddProduct(product);
+                productRepository.CheckProductExist(name);//checks if the product is exist or not if it is not exist then get an exception
+                productRepository.AddProduct(product);//Add a new produc in database
                 Console.WriteLine("Product Added successfully!!\n");
             }
             catch(DuplicateProductException de)
